@@ -119,6 +119,41 @@ function PurchaseButton({ children, className = "" }: { children: ReactNode; cla
   );
 }
 
+function OfferPrice() {
+  const { expired, time } = useOfferCountdown();
+
+  if (expired) {
+    return (
+      <div className="mt-7 border-l-4 border-primary pl-5">
+        <p className="text-xs font-bold uppercase text-muted-foreground">Receba todo o material por</p>
+        <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1">
+          <span className="font-display text-5xl font-black text-primary sm:text-6xl">{OLD_PRICE}</span>
+        </div>
+        <p className="mt-2 text-xs font-bold uppercase text-muted-foreground">Preço normal do método</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="mt-7 border-l-4 border-primary pl-5">
+      <p className="text-xs font-bold uppercase text-muted-foreground">Receba todo o material por</p>
+      <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1">
+        <span className="font-display text-5xl font-black text-primary sm:text-6xl">{PRICE}</span>
+        <span className="text-2xl font-bold text-muted-foreground line-through decoration-warning decoration-2">{OLD_PRICE}</span>
+        <span className="rounded-full bg-warning px-3 py-1 text-xs font-black uppercase text-warning-foreground">Oferta de lançamento</span>
+      </div>
+      <p className="mt-2 text-xs font-bold uppercase text-warning">Economiza 6.900 Kz ao comprar hoje</p>
+      <div className="mt-4 flex flex-wrap items-center gap-3 border border-warning/50 bg-warning/10 p-4">
+        <Timer className="size-6 shrink-0 text-warning" aria-hidden="true" />
+        <p className="text-xs font-black uppercase sm:text-sm">
+          Esta oferta termina em <span className="font-display text-base text-warning tabular-nums sm:text-lg">{time}</span>
+        </p>
+        <p className="w-full text-[11px] font-bold uppercase text-muted-foreground">Depois deste tempo, o preço volta ao valor normal de {OLD_PRICE}.</p>
+      </div>
+    </div>
+  );
+}
+
 function EbookCover({ priority = false }: { priority?: boolean }) {
   return (
     <div className="relative mx-auto w-full max-w-[320px] perspective-distant" aria-label="Capa oficial do e-book Método Secar em 20 Dias">
