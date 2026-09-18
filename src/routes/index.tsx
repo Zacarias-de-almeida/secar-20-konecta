@@ -25,6 +25,7 @@ import {
 import type { ReactNode } from "react";
 
 import { Button } from "@/components/ui/button";
+import ebookCover from "@/assets/metodo-secar-capa.jpg";
 
 const CHECKOUT_URL = "[COLOCAR LINK DO CHECKOUT]";
 const PRICE = "[PREÇO] Kz";
@@ -70,17 +71,17 @@ const contents = [
 ] as const;
 
 const benefits = [
-  { icon: Flame, title: "Redução de gordura", text: "como objectivo" },
-  { icon: Dumbbell, title: "Mais definição", text: "corporal" },
-  { icon: BatteryCharging, title: "Mais disposição", text: "para a rotina" },
-  { icon: Heart, title: "Mais confiança", text: "e autoestima" },
+  { icon: Flame, title: "Foco na redução de gordura", text: "Orientações para alinhar alimentação, movimento e rotina em torno do seu objectivo." },
+  { icon: Dumbbell, title: "Corpo mais activo e definido", text: "Movimentos simples para estimular o corpo sem exigir aparelhos sofisticados." },
+  { icon: BatteryCharging, title: "Mais energia no dia a dia", text: "Hábitos organizados para deixar de viver no improviso e cuidar melhor de si." },
+  { icon: Heart, title: "Confiança que nasce da acção", text: "A satisfação de cumprir um plano possível e voltar a levar o seu objectivo a sério." },
 ];
 
 const bonuses = [
-  ["01", "GUIA DE ORGANIZAÇÃO ALIMENTAR", "Um material prático para ajudar a organizar as refeições e evitar decisões impulsivas."],
-  ["02", "DESAFIO 20 DIAS", "Calendário simples para acompanhar hábitos, alimentação, movimento e consistência."],
-  ["03", "GUIA DE TREINO EM CASA", "Rotina simples de movimentos para começar sem depender de equipamentos sofisticados."],
-  ["04", "GUIA ANTI-DESISTÊNCIA", "Estratégias práticas para manter a disciplina quando a motivação diminuir."],
+  ["01", "PLANEADOR DE REFEIÇÕES", "Organize antecipadamente as suas refeições, lista de compras e horários para reduzir escolhas por impulso."],
+  ["02", "DESAFIO 20 DIAS", "Um calendário diário para assinalar alimentação, água, movimento e hábitos — e visualizar a sua consistência."],
+  ["03", "GUIA DE TREINO EM CASA", "Uma rotina simples e progressiva para movimentar o corpo em casa, mesmo sem equipamentos sofisticados."],
+  ["04", "PROTOCOLO ANTI-DESISTÊNCIA", "Acções rápidas para recuperar o foco depois de um dia difícil, sem abandonar todo o processo."],
 ];
 
 const faqs = [
@@ -105,24 +106,18 @@ function PurchaseButton({ children, className = "" }: { children: ReactNode; cla
   );
 }
 
-function EbookCover() {
+function EbookCover({ priority = false }: { priority?: boolean }) {
   return (
-    <div className="relative mx-auto w-full max-w-[300px] perspective-distant" aria-label="Capa provisória do e-book Método Secar em 20 Dias">
-      <div className="ebook-cover relative aspect-[3/4] overflow-hidden border border-primary/40 bg-card p-7 shadow-2xl">
-        <div className="absolute inset-x-0 top-0 h-2 bg-primary" />
-        <div className="absolute -right-10 top-20 h-40 w-40 rotate-12 border-[26px] border-primary/20" />
-        <div className="relative flex h-full flex-col">
-          <div className="mb-10 flex items-center gap-2 text-[10px] font-bold uppercase text-primary">
-            <Flame className="size-4" /> Transformação começa na rotina
-          </div>
-          <p className="text-sm font-black uppercase text-foreground">Método</p>
-          <p className="font-display text-5xl font-black uppercase leading-[0.86] text-primary">Secar</p>
-          <p className="font-display text-4xl font-black uppercase leading-none text-foreground">em 20 dias</p>
-          <div className="mt-auto border-l-2 border-warning pl-3 text-[11px] font-semibold uppercase leading-relaxed text-muted-foreground">
-            Alimentação<br />Movimento<br />Consistência
-          </div>
-        </div>
-      </div>
+    <div className="relative mx-auto w-full max-w-[320px] perspective-distant" aria-label="Capa oficial do e-book Método Secar em 20 Dias">
+      <img
+        src={ebookCover}
+        alt="Capa oficial do e-book Método Secar em 20 Dias"
+        width={1024}
+        height={1536}
+        loading={priority ? "eager" : "lazy"}
+        fetchPriority={priority ? "high" : "auto"}
+        className="ebook-cover block aspect-[2/3] w-full border border-primary/40 object-cover shadow-2xl"
+      />
       <div className="mx-auto mt-5 flex w-fit items-center gap-2 text-xs font-bold uppercase text-muted-foreground">
         <Smartphone className="size-4 text-primary" /> Leitura no telemóvel
       </div>
@@ -154,7 +149,7 @@ function SalesPage() {
               <p className="mt-3 flex items-center gap-2 text-xs font-black uppercase text-muted-foreground"><Zap className="size-4 text-warning" /> Acesso digital imediato</p>
             </div>
           </div>
-          <EbookCover />
+          <EbookCover priority />
         </div>
       </section>
 
@@ -186,8 +181,8 @@ function SalesPage() {
             {benefits.map(({ icon: Icon, title, text }) => (
               <div key={title} className="border border-border bg-card p-6">
                 <Icon className="mb-8 size-8 text-primary" />
-                <h3 className="text-lg font-black uppercase">{title}</h3>
-                <p className="text-muted-foreground">{text}</p>
+                <h3 className="text-lg font-black uppercase leading-tight">{title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{text}</p>
               </div>
             ))}
           </div>
@@ -214,16 +209,19 @@ function SalesPage() {
         <div className="mx-auto grid max-w-6xl gap-12 px-5 sm:px-8 lg:grid-cols-[.85fr_1.15fr] lg:items-center">
           <EbookCover />
           <div>
-            <p className="section-kicker">Oferta principal</p>
-            <h2 className="section-title">Não está apenas a comprar um e-book. Está a adquirir um plano para começar a mudar a sua rotina.</h2>
+            <p className="section-kicker">Tudo o que precisa para começar</p>
+            <h2 className="section-title">Um plano completo para sair da intenção e entrar em acção.</h2>
+            <p className="mt-5 text-lg leading-relaxed text-muted-foreground">Em vez de juntar conselhos soltos, recebe uma sequência clara para organizar os próximos 20 dias com mais foco, consciência e consistência.</p>
             <ul className="mt-7 grid gap-3 text-sm font-bold sm:grid-cols-2">
               {["E-book Método Secar em 20 Dias", "Acesso digital", "Leitura no telemóvel", "Conteúdo prático", "Bónus exclusivos"].map((item) => <li key={item} className="flex gap-2"><CircleCheck className="size-5 shrink-0 text-primary" />{item}</li>)}
             </ul>
-            <div className="mt-9 border-l-4 border-primary pl-5">
-              <p className="text-xs font-bold uppercase text-muted-foreground">Acesso completo por</p>
+            <div className="mt-8 flex items-center gap-3 border border-primary/35 bg-primary/10 p-4 text-sm font-extrabold uppercase"><Sparkles className="size-5 shrink-0 text-primary" /> E-book completo + 4 bónus práticos</div>
+            <div className="mt-7 border-l-4 border-primary pl-5">
+              <p className="text-xs font-bold uppercase text-muted-foreground">Receba todo o material por</p>
               <p className="font-display mt-1 text-5xl font-black text-primary sm:text-6xl">{PRICE}</p>
             </div>
             <div className="mt-7"><PurchaseButton>Quero o método agora</PurchaseButton></div>
+            <p className="mt-4 flex items-center gap-2 text-xs font-bold text-muted-foreground"><LockKeyhole className="size-4 text-primary" /> Pagamento seguro e acesso digital após confirmação</p>
           </div>
         </div>
       </section>
@@ -238,7 +236,7 @@ function SalesPage() {
             {bonuses.map(([number, title, text]) => (
               <div key={number} className="border border-background/15 p-6 sm:p-8">
                 <div className="mb-8 flex items-center justify-between"><span className="font-display text-4xl font-black text-primary">{number}</span><Sparkles className="size-6 text-warning" /></div>
-                <h3 className="text-lg font-black">{title}</h3><p className="mt-3 leading-relaxed text-background/65">{text}</p>
+                <p className="mb-2 text-[11px] font-black uppercase text-warning">Incluído sem custo adicional</p><h3 className="text-lg font-black">{title}</h3><p className="mt-3 leading-relaxed text-background/65">{text}</p>
               </div>
             ))}
           </div>
@@ -270,7 +268,7 @@ function SalesPage() {
       <section className="py-20">
         <div className="mx-auto grid max-w-5xl gap-8 px-5 sm:px-8 md:grid-cols-[auto_1fr] md:items-center">
           <div className="flex size-36 items-center justify-center border-2 border-primary bg-primary/10 text-primary"><ShieldCheck className="size-20" /></div>
-          <div><p className="section-kicker">Compra protegida</p><h2 className="section-title">Garantia de satisfação</h2><p className="mt-4 max-w-3xl text-lg leading-relaxed text-muted-foreground">Você terá um período de 7 dias para conhecer o material. Se perceber que o conteúdo não é adequado para si, poderá solicitar o reembolso dentro das condições apresentadas no checkout.</p><p className="mt-5 inline-flex items-center gap-2 font-black uppercase"><LockKeyhole className="size-5 text-primary" /> Compra segura</p></div>
+          <div><p className="section-kicker">Conheça primeiro. Decida com tranquilidade.</p><h2 className="section-title">7 dias de garantia de satisfação</h2><p className="mt-4 max-w-3xl text-lg leading-relaxed text-muted-foreground">Faça a compra, receba o material e conheça o método com calma. Se, dentro de 7 dias, perceber que este conteúdo não é adequado para si, poderá solicitar o reembolso conforme as condições apresentadas no checkout.</p><div className="mt-6 flex flex-wrap gap-3"><p className="inline-flex items-center gap-2 border border-border px-4 py-3 text-sm font-black uppercase"><LockKeyhole className="size-5 text-primary" /> Compra segura</p><p className="inline-flex items-center gap-2 border border-border px-4 py-3 text-sm font-black uppercase"><ShieldCheck className="size-5 text-primary" /> Decisão sem pressão</p></div></div>
         </div>
       </section>
 
