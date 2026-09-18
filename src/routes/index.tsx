@@ -28,7 +28,8 @@ import { Button } from "@/components/ui/button";
 import ebookCover from "@/assets/metodo-secar-capa.jpg";
 
 const CHECKOUT_URL = "[COLOCAR LINK DO CHECKOUT]";
-const PRICE = "[PREÇO] Kz";
+const PRICE = "5.600 Kz";
+const OLD_PRICE = "12.500 Kz";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -218,7 +219,12 @@ function SalesPage() {
             <div className="mt-8 flex items-center gap-3 border border-primary/35 bg-primary/10 p-4 text-sm font-extrabold uppercase"><Sparkles className="size-5 shrink-0 text-primary" /> E-book completo + 4 bónus práticos</div>
             <div className="mt-7 border-l-4 border-primary pl-5">
               <p className="text-xs font-bold uppercase text-muted-foreground">Receba todo o material por</p>
-              <p className="font-display mt-1 text-5xl font-black text-primary sm:text-6xl">{PRICE}</p>
+              <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1">
+                <span className="font-display text-5xl font-black text-primary sm:text-6xl">{PRICE}</span>
+                <span className="text-2xl font-bold text-muted-foreground line-through decoration-warning decoration-2">{OLD_PRICE}</span>
+                <span className="rounded-full bg-warning px-3 py-1 text-xs font-black uppercase text-warning-foreground">Oferta de lançamento</span>
+              </div>
+              <p className="mt-2 text-xs font-bold uppercase text-warning">Economiza 6.900 Kz ao comprar hoje</p>
             </div>
             <div className="mt-7"><PurchaseButton>Quero o método agora</PurchaseButton></div>
             <p className="mt-4 flex items-center gap-2 text-xs font-bold text-muted-foreground"><LockKeyhole className="size-4 text-primary" /> Pagamento seguro e acesso digital após confirmação</p>
