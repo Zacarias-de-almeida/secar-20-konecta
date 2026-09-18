@@ -28,7 +28,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import ebookCover from "@/assets/metodo-secar-capa.jpg";
 
-const CHECKOUT_URL = "[COLOCAR LINK DO CHECKOUT]";
+const CHECKOUT_URL = "https://pay.kursinha.com/c/6aad1e907b6e40c268474a2b";
 const PRICE = "5.600 Kz";
 const OLD_PRICE = "12.500 Kz";
 const OFFER_SECONDS = 5 * 60 + 30;
