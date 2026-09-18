@@ -22,7 +22,7 @@ import {
   Utensils,
   Zap,
 } from "lucide-react";
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 import { Button } from "@/components/ui/button";
 import ebookCover from "@/assets/metodo-secar-capa.jpg";
@@ -30,6 +30,18 @@ import ebookCover from "@/assets/metodo-secar-capa.jpg";
 const CHECKOUT_URL = "[COLOCAR LINK DO CHECKOUT]";
 const PRICE = "5.600 Kz";
 const OLD_PRICE = "12.500 Kz";
+const OFFER_SECONDS = 5 * 60 + 30;
+
+function useOfferCountdown() {
+  const [secondsLeft, setSecondsLeft] = useState(OFFER_SECONDS);
+  useEffect(() => {
+    const interval = window.setInterval(() => setSecondsLeft((s) => (s > 0 ? s - 1 : 0)), 1000);
+    return () => window.clearInterval(interval);
+  }, []);
+  const minutes = String(Math.floor(secondsLeft / 60)).padStart(2, "0");
+  const seconds = String(secondsLeft % 60).padStart(2, "0");
+  return { expired: secondsLeft === 0, time: `${minutes}:${seconds}` };
+}
 
 export const Route = createFileRoute("/")({
   head: () => ({
