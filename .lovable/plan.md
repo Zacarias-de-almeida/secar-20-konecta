@@ -7,7 +7,7 @@ Criar uma única página de vendas, rápida e mobile first, em português natura
 - Abrir com a capa oficial, nome do produto, headline, texto principal, CTA e indicação de acesso digital imediato.
 - Construir as 12 secções solicitadas: problema, solução, conteúdo do e-book, oferta, quatro bónus, desejo, objeções, garantia, urgência honesta, FAQ e CTA final.
 - Manter a comunicação persuasiva sem promessas médicas, resultados garantidos, testemunhos inventados ou falsa escassez.
-- Mostrar exclusivamente preço em Kz e linguagem adequada ao público angolano.
+- Mostrar exclusivamente preço em Kz e linguagem adequada ao público angolano, removendo qualquer moeda, expressão, localização ou referência ligada ao Brasil.
 
 ## Direção visual
 - Aplicar uma estética premium e enérgica em preto, verde-lima, branco e pequenos detalhes amarelos.
@@ -19,7 +19,7 @@ Criar uma única página de vendas, rápida e mobile first, em português natura
 ## Conversão
 - Repetir CTAs nos pontos estratégicos da página e incluir uma ação de compra fixa no telemóvel sem cobrir conteúdo.
 - Centralizar o preço e o link do checkout em constantes no início do código para edição simples.
-- Usar temporariamente `[PREÇO] Kz` e `[COLOCAR LINK DO CHECKOUT]`, conforme solicitado.
+- Usar temporariamente `[PREÇO] Kz` e `[COLOCAR LINK DO CHECKOUT]`, conforme solicitado; não haverá R$, reais ou referências brasileiras em nenhum ponto.
 - Fazer todos os botões de compra abrirem o mesmo checkout.
 - Destacar “4 BÓNUS + E-BOOK COMPLETO”, acesso imediato, leitura no telemóvel, garantia de 7 dias e pagamento em Kz.
 
