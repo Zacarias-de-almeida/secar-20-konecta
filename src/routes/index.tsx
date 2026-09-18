@@ -19,6 +19,7 @@ import {
   Smartphone,
   Sparkles,
   Target,
+  Timer,
   Utensils,
   Zap,
 } from "lucide-react";
