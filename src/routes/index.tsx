@@ -69,6 +69,13 @@ const contents = [
   [Medal, "Estratégias para não desistir"],
 ] as const;
 
+const benefits = [
+  { icon: Flame, title: "Redução de gordura", text: "como objectivo" },
+  { icon: Dumbbell, title: "Mais definição", text: "corporal" },
+  { icon: BatteryCharging, title: "Mais disposição", text: "para a rotina" },
+  { icon: Heart, title: "Mais confiança", text: "e autoestima" },
+];
+
 const bonuses = [
   ["01", "GUIA DE ORGANIZAÇÃO ALIMENTAR", "Um material prático para ajudar a organizar as refeições e evitar decisões impulsivas."],
   ["02", "DESAFIO 20 DIAS", "Calendário simples para acompanhar hábitos, alimentação, movimento e consistência."],
@@ -176,16 +183,11 @@ function SalesPage() {
             <p className="mt-5 text-lg leading-relaxed text-muted-foreground">O e-book apresenta uma rotina estruturada com orientações práticas sobre alimentação, organização, exercícios, movimento e hábitos que ajudam a tornar o processo mais consistente.</p>
           </div>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              [Flame, "Redução de gordura", "como objectivo"],
-              [Dumbbell, "Mais definição", "corporal"],
-              [BatteryCharging, "Mais disposição", "para a rotina"],
-              [Heart, "Mais confiança", "e autoestima"],
-            ].map(([Icon, title, text]) => (
-              <div key={String(title)} className="border border-border bg-card p-6">
+            {benefits.map(({ icon: Icon, title, text }) => (
+              <div key={title} className="border border-border bg-card p-6">
                 <Icon className="mb-8 size-8 text-primary" />
-                <h3 className="text-lg font-black uppercase">{String(title)}</h3>
-                <p className="text-muted-foreground">{String(text)}</p>
+                <h3 className="text-lg font-black uppercase">{title}</h3>
+                <p className="text-muted-foreground">{text}</p>
               </div>
             ))}
           </div>
@@ -213,7 +215,7 @@ function SalesPage() {
           <EbookCover />
           <div>
             <p className="section-kicker">Oferta principal</p>
-            <h2 className="section-title">Você não está comprando apenas um e-book. Está adquirindo um plano para começar a mudar a sua rotina.</h2>
+            <h2 className="section-title">Não está apenas a comprar um e-book. Está a adquirir um plano para começar a mudar a sua rotina.</h2>
             <ul className="mt-7 grid gap-3 text-sm font-bold sm:grid-cols-2">
               {["E-book Método Secar em 20 Dias", "Acesso digital", "Leitura no telemóvel", "Conteúdo prático", "Bónus exclusivos"].map((item) => <li key={item} className="flex gap-2"><CircleCheck className="size-5 shrink-0 text-primary" />{item}</li>)}
             </ul>
@@ -246,7 +248,7 @@ function SalesPage() {
       <section className="py-20">
         <div className="mx-auto max-w-4xl px-5 text-center sm:px-8">
           <p className="section-kicker justify-center">Leve o seu objectivo a sério</p>
-          <h2 className="section-title">Imagine olhar para o espelho e perceber que finalmente está levando o seu objectivo a sério.</h2>
+          <h2 className="section-title">Imagine olhar para o espelho e perceber que finalmente está a levar o seu objectivo a sério.</h2>
           <p className="mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-muted-foreground">Imagine vestir aquela roupa de que gosta com mais confiança. Sentir-se mais disposta. Ter uma rotina organizada. E, principalmente, parar de depender de promessas milagrosas e começar a trabalhar consistentemente pelos resultados que deseja.</p>
           <div className="mt-9 flex justify-center"><PurchaseButton>Quero começar os 20 dias</PurchaseButton></div>
         </div>
@@ -254,11 +256,11 @@ function SalesPage() {
 
       <section className="border-y border-border bg-secondary/40 py-20">
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
-          <p className="section-kicker">Sem complicações</p><h2 className="section-title">Talvez você esteja pensando…</h2>
+          <p className="section-kicker">Sem complicações</p><h2 className="section-title">Talvez esteja a pensar…</h2>
           <div className="mt-10 grid gap-5 lg:grid-cols-3">
             {[
               ["E se eu não tiver tempo?", "O método é apresentado de forma prática para se encaixar na rotina."],
-              ["E se eu estiver começando agora?", "O conteúdo foi estruturado para quem precisa de orientação e organização."],
+              ["E se eu estiver a começar agora?", "O conteúdo foi estruturado para quem precisa de orientação e organização."],
               ["E se eu já tentei várias vezes?", "O foco é criar consistência e hábitos sustentáveis, não depender apenas de motivação."],
             ].map(([q, a]) => <div key={q} className="border-t-4 border-primary bg-background p-6"><h3 className="text-lg font-black">{q}</h3><p className="mt-4 leading-relaxed text-muted-foreground">{a}</p></div>)}
           </div>
