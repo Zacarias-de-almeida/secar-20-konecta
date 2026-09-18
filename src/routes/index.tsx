@@ -19,10 +19,11 @@ import {
   Smartphone,
   Sparkles,
   Target,
+  Timer,
   Utensils,
   Zap,
 } from "lucide-react";
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 import { Button } from "@/components/ui/button";
 import ebookCover from "@/assets/metodo-secar-capa.jpg";
@@ -30,6 +31,18 @@ import ebookCover from "@/assets/metodo-secar-capa.jpg";
 const CHECKOUT_URL = "[COLOCAR LINK DO CHECKOUT]";
 const PRICE = "5.600 Kz";
 const OLD_PRICE = "12.500 Kz";
+const OFFER_SECONDS = 5 * 60 + 30;
+
+function useOfferCountdown() {
+  const [secondsLeft, setSecondsLeft] = useState(OFFER_SECONDS);
+  useEffect(() => {
+    const interval = window.setInterval(() => setSecondsLeft((s) => (s > 0 ? s - 1 : 0)), 1000);
+    return () => window.clearInterval(interval);
+  }, []);
+  const minutes = String(Math.floor(secondsLeft / 60)).padStart(2, "0");
+  const seconds = String(secondsLeft % 60).padStart(2, "0");
+  return { expired: secondsLeft === 0, time: `${minutes}:${seconds}` };
+}
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -104,6 +117,41 @@ function PurchaseButton({ children, className = "" }: { children: ReactNode; cla
         <ArrowRight aria-hidden="true" />
       </a>
     </Button>
+  );
+}
+
+function OfferPrice() {
+  const { expired, time } = useOfferCountdown();
+
+  if (expired) {
+    return (
+      <div className="mt-7 border-l-4 border-primary pl-5">
+        <p className="text-xs font-bold uppercase text-muted-foreground">Receba todo o material por</p>
+        <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1">
+          <span className="font-display text-5xl font-black text-primary sm:text-6xl">{OLD_PRICE}</span>
+        </div>
+        <p className="mt-2 text-xs font-bold uppercase text-muted-foreground">Preço normal do método</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="mt-7 border-l-4 border-primary pl-5">
+      <p className="text-xs font-bold uppercase text-muted-foreground">Receba todo o material por</p>
+      <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1">
+        <span className="font-display text-5xl font-black text-primary sm:text-6xl">{PRICE}</span>
+        <span className="text-2xl font-bold text-muted-foreground line-through decoration-warning decoration-2">{OLD_PRICE}</span>
+        <span className="rounded-full bg-warning px-3 py-1 text-xs font-black uppercase text-warning-foreground">Oferta de lançamento</span>
+      </div>
+      <p className="mt-2 text-xs font-bold uppercase text-warning">Economiza 6.900 Kz ao comprar hoje</p>
+      <div className="mt-4 flex flex-wrap items-center gap-3 border border-warning/50 bg-warning/10 p-4">
+        <Timer className="size-6 shrink-0 text-warning" aria-hidden="true" />
+        <p className="text-xs font-black uppercase sm:text-sm">
+          Esta oferta termina em <span className="font-display text-base text-warning tabular-nums sm:text-lg">{time}</span>
+        </p>
+        <p className="w-full text-[11px] font-bold uppercase text-muted-foreground">Depois deste tempo, o preço volta ao valor normal de {OLD_PRICE}.</p>
+      </div>
+    </div>
   );
 }
 
@@ -217,15 +265,7 @@ function SalesPage() {
               {["E-book Método Secar em 20 Dias", "Acesso digital", "Leitura no telemóvel", "Conteúdo prático", "Bónus exclusivos"].map((item) => <li key={item} className="flex gap-2"><CircleCheck className="size-5 shrink-0 text-primary" />{item}</li>)}
             </ul>
             <div className="mt-8 flex items-center gap-3 border border-primary/35 bg-primary/10 p-4 text-sm font-extrabold uppercase"><Sparkles className="size-5 shrink-0 text-primary" /> E-book completo + 4 bónus práticos</div>
-            <div className="mt-7 border-l-4 border-primary pl-5">
-              <p className="text-xs font-bold uppercase text-muted-foreground">Receba todo o material por</p>
-              <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1">
-                <span className="font-display text-5xl font-black text-primary sm:text-6xl">{PRICE}</span>
-                <span className="text-2xl font-bold text-muted-foreground line-through decoration-warning decoration-2">{OLD_PRICE}</span>
-                <span className="rounded-full bg-warning px-3 py-1 text-xs font-black uppercase text-warning-foreground">Oferta de lançamento</span>
-              </div>
-              <p className="mt-2 text-xs font-bold uppercase text-warning">Economiza 6.900 Kz ao comprar hoje</p>
-            </div>
+            <OfferPrice />
             <div className="mt-7"><PurchaseButton>Quero o método agora</PurchaseButton></div>
             <p className="mt-4 flex items-center gap-2 text-xs font-bold text-muted-foreground"><LockKeyhole className="size-4 text-primary" /> Pagamento seguro e acesso digital após confirmação</p>
           </div>
